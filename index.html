@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f7f7f5">
+<title>Mandarin Coach</title>
+<style>
+:root{--bg:#f7f7f5;--panel:#fff;--ink:#20211f;--muted:#777a73;--line:#e7e8e3;--green:#26734d;--greenbg:#eaf3ed;--red:#a64c43;--redbg:#f8ecea;--shadow:0 8px 28px rgba(24,30,24,.045)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input{font:inherit}button{cursor:pointer}.app{max-width:980px;margin:auto;padding:24px 22px 48px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}.brand{font-size:17px;font-weight:700;letter-spacing:-.4px}.brand span{color:var(--green)}.top-actions{display:flex;gap:8px}.iconbtn,.nav button,.secondary{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:9px 12px}.hero{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:22px}.eyebrow{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:700}.hero h1{font-size:clamp(28px,5vw,40px);letter-spacing:-1.4px;margin:4px 0}.sub{color:var(--muted);margin:0}.streak{background:var(--greenbg);color:var(--green);padding:9px 13px;border-radius:30px;font-size:13px;font-weight:650;white-space:nowrap}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}.stat,.panel,.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}.stat{padding:16px}.stat strong{display:block;font-size:25px;letter-spacing:-.8px}.stat small{color:var(--muted)}.progress-wrap{padding:18px 20px;margin-bottom:20px}.progress-head{display:flex;justify-content:space-between;gap:12px;margin-bottom:10px}.progress-head strong{font-size:14px}.progress-head span{font-size:13px;color:var(--muted)}.track{height:8px;border-radius:20px;background:#edf0eb;overflow:hidden}.fill{height:100%;background:var(--green);border-radius:20px;transition:width .25s}.nav{display:flex;gap:7px;flex-wrap:wrap;margin:20px 0}.nav button{border-color:transparent;background:transparent;color:var(--muted);padding:9px 14px}.nav button.active{background:#e9ece7;color:var(--ink);font-weight:650}.view{display:none}.view.active{display:block}.section-head{display:flex;justify-content:space-between;align-items:center;margin:8px 0 14px}.section-head h2{font-size:19px;letter-spacing:-.5px;margin:0}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.action{padding:19px;text-align:left;min-height:135px;border:1px solid var(--line);border-radius:17px;background:#fff;box-shadow:var(--shadow);color:var(--ink)}.action:hover,.choice:hover{border-color:#a9b9ad}.action .symbol{font-size:23px;margin-bottom:10px}.action b{display:block;font-size:16px}.action small{color:var(--muted)}.panel{padding:20px}.study-card{max-width:620px;margin:12px auto;padding:28px;text-align:center}.big-hanzi{font-size:76px;line-height:1.25;margin:14px 0;font-family:"PingFang SC","Noto Sans CJK SC",sans-serif}.pinyin{font-size:20px;color:var(--green);margin:5px}.meaning{font-size:19px;font-weight:650;margin:8px}.example{margin:18px auto 8px;padding:14px;background:#f7f8f5;border-radius:13px;max-width:470px}.example .zh{font-size:23px}.controls{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-top:20px}.primary{background:var(--green);color:white;border:1px solid var(--green);padding:11px 17px;border-radius:12px;font-weight:650}.secondary{padding:11px 15px}.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:18px 0}.choice{border:1px solid var(--line);background:white;border-radius:13px;padding:15px;text-align:left;min-height:58px}.choice.correct{border-color:#72a88a;background:var(--greenbg)}.choice.wrong{border-color:#d99b94;background:var(--redbg)}.feedback{padding:14px;border-radius:13px;background:#f4f5f1;margin:14px 0;text-align:left}.feedback.good{background:var(--greenbg)}.feedback.bad{background:var(--redbg)}.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.row>*{flex:1}.word-list{display:grid;gap:8px}.word{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px 14px;border:1px solid var(--line);background:#fff;border-radius:12px}.word .hanzi{font-size:24px;min-width:52px}.word small{display:block;color:var(--muted)}.pill{font-size:11px;padding:4px 8px;border-radius:20px;background:#eef0ec;color:#596158;white-space:nowrap}.pill.due{background:#f7eee2;color:#8a5b21}.empty{text-align:center;padding:34px;color:var(--muted)}.hidden{display:none!important}input{width:100%;padding:12px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--ink)}.field{margin:10px 0}.field label{font-size:12px;color:var(--muted);display:block;margin-bottom:5px}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#252825;color:white;padding:10px 16px;border-radius:30px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s}.toast.show{opacity:1}.footer{font-size:12px;color:var(--muted);text-align:center;margin-top:30px}
+@media(max-width:620px){.app{padding:17px 14px 34px}.stats{grid-template-columns:repeat(2,1fr);gap:8px}.stat{padding:13px}.hero{align-items:start;flex-direction:column}.grid{grid-template-columns:1fr}.study-card{padding:20px 15px}.big-hanzi{font-size:66px}.choices{grid-template-columns:1fr}.top{margin-bottom:22px}.word{align-items:flex-start}.word .hanzi{min-width:42px}}
+/* UI polish */
+:root{--bg:#f3f5f0;--panel:#fff;--ink:#202720;--muted:#68736a;--line:#e2e7df;--green:#286b4b;--greenbg:#e9f3ec;--red:#a64c43;--redbg:#f8ecea;--shadow:0 12px 34px rgba(27,43,31,.055);--amber:#d08a47}
+body{background:radial-gradient(ellipse at 50% -18%,#e8efe6 0,transparent 42%),var(--bg);letter-spacing:.005em}
+.app{max-width:1060px;padding-top:28px}
+.top{margin-bottom:36px}
+.brand{font-size:19px;letter-spacing:-.6px}
+.brand span{color:#d08a47}
+.top-actions{align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.pill{font-weight:650}
+.iconbtn{font-size:13px;font-weight:600;transition:background .18s,border-color .18s,transform .18s}
+.iconbtn:hover,.secondary:hover{background:#f5f7f3;border-color:#cbd5ca}
+.hero{align-items:flex-end;margin-bottom:26px}
+.hero h1{font-size:clamp(32px,5vw,46px);line-height:1.12;margin:8px 0 9px}
+.eyebrow{letter-spacing:1.7px}
+.streak{padding:10px 15px}
+.stat,.panel,.card,.action{border-color:var(--line);box-shadow:var(--shadow)}
+.stat{padding:18px 19px;transition:transform .18s,box-shadow .18s}
+.stat:hover{transform:translateY(-2px);box-shadow:0 15px 34px rgba(27,43,31,.08)}
+.stat strong{font-size:28px}
+.progress-wrap{padding:20px 22px;margin-bottom:24px}
+.track{height:10px;background:#e9eee7}
+.fill{background:linear-gradient(90deg,#286b4b,#64a879)}
+.nav{gap:5px;padding:5px;width:max-content;max-width:100%;border:1px solid var(--line);border-radius:15px;background:rgba(255,255,255,.74);margin:22px 0 24px}
+.nav button{border-radius:10px;padding:10px 16px;font-weight:600;transition:background .18s,color .18s}
+.nav button:hover{color:var(--ink);background:#f2f5f0}
+.nav button.active{background:#e7f0e8;color:var(--green);box-shadow:inset 0 0 0 1px #d8e7da}
+.section-head{margin:10px 0 16px}
+.section-head h2{font-size:21px;letter-spacing:-.6px}
+.grid{gap:15px}
+.action{min-height:148px;padding:21px;border-radius:19px;transition:transform .18s,border-color .18s,box-shadow .18s}
+.action:hover{transform:translateY(-3px);border-color:#c4d4c5;box-shadow:0 16px 36px rgba(27,43,31,.09)}
+.action .symbol{display:grid;place-items:center;width:42px;height:42px;margin-bottom:14px;border-radius:13px;background:#edf4ed;color:var(--green);font-size:22px}
+.action b{font-size:17px;margin-bottom:3px}
+.action small{font-size:13px;line-height:1.45}
+.home .panel{border-radius:18px}
+.panel{padding:22px}
+.study-card{padding:34px 30px;border-radius:22px}
+.big-hanzi{font-size:82px;color:#203c2c;letter-spacing:.02em}
+.example{background:#f4f7f2;border:1px solid #e8eee6}
+.primary,.secondary,.choice{min-height:48px;border-radius:13px;transition:transform .14s,background .18s,border-color .18s,box-shadow .18s}
+.primary{box-shadow:0 5px 12px rgba(40,107,75,.15)}
+.primary:hover{background:#205a3e;transform:translateY(-1px);box-shadow:0 8px 16px rgba(40,107,75,.2)}
+.secondary{font-weight:600}
+.choices{gap:12px}
+.choice{padding:14px 16px;font-weight:550}
+.choice:hover{background:#f8faf7;transform:translateY(-1px)}
+.choice:disabled{cursor:default;transform:none}
+.word{padding:14px 16px;transition:border-color .18s,background .18s}
+.word:hover{border-color:#cbd8cb;background:#fbfcfa}
+.word .hanzi{color:#203c2c}
+input{min-height:48px;transition:border-color .18s,box-shadow .18s}
+input:focus{outline:none;border-color:#70a27d;box-shadow:0 0 0 3px rgba(67,133,84,.13)}
+button:focus-visible{outline:3px solid rgba(48,117,72,.3);outline-offset:2px}
+.footer{padding:0 10px;line-height:1.6}
+.learn-question{font-size:14px;color:var(--muted);letter-spacing:.01em;margin:18px 0 10px}
+.answer-pinyin{font-size:25px;line-height:1.2;color:var(--green);font-weight:700;margin:12px 0 6px}
+.answer-meaning{display:block;width:fit-content;max-width:min(100%,600px);margin:14px auto 8px;padding:15px 22px;border-radius:16px;background:linear-gradient(135deg,#eff6ef,#f8faf7);border:1px solid #e1ebe0;color:#203c2c;font-size:clamp(22px,3.1vw,30px);font-weight:730;line-height:1.35;overflow-wrap:anywhere}
+.answer-meaning strong{display:block;font:inherit}.answer-meaning strong.long{font-size:clamp(18px,2.3vw,23px);line-height:1.45;font-weight:650}.answer-meaning small{display:block;margin-top:5px;color:#728076;font-size:13px;font-weight:500;line-height:1.4}
+.choice-hanzi{display:block;font-family:"PingFang SC","Noto Sans CJK SC",sans-serif;font-size:24px;font-weight:700;line-height:1.2;color:#203c2c}.choice-pinyin{display:block;margin-top:5px;font-size:13px;font-weight:500;color:var(--muted)}
+.answer-audio{margin-top:6px}
+.course-progress{margin:14px 0}.course-progress-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:7px;font-size:13px}.course-progress-head span:last-child{color:var(--muted)}.course-track{height:8px;border-radius:20px;background:#edf0eb;overflow:hidden}.course-fill{height:100%;width:0;background:linear-gradient(90deg,#286b4b,#64a879);border-radius:20px;transition:width .25s}
+.toast{bottom:max(18px,env(safe-area-inset-bottom));box-shadow:0 8px 24px rgba(0,0,0,.2);z-index:5}
+@media(max-width:620px){
+  .app{padding:14px 15px max(30px,env(safe-area-inset-bottom))}
+  .top{align-items:flex-start;gap:12px;margin-bottom:25px}
+  .brand{padding-top:7px;white-space:nowrap}
+  .top-actions{gap:6px}
+  .top-actions .pill{order:3;width:100%;text-align:center}
+  .iconbtn{padding:9px 10px}
+  .hero{gap:13px;margin-bottom:18px}
+  .hero h1{font-size:34px}
+  .stats{gap:9px;margin:18px 0}
+  .stat{padding:13px 14px;border-radius:15px}
+  .stat strong{font-size:24px}
+  .progress-wrap{padding:16px;margin-bottom:20px}
+  .progress-head{align-items:baseline}
+  .nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%;gap:2px;padding:4px;margin:18px 0 21px}
+  .nav button{padding:9px 2px;font-size:12px;line-height:1.2;min-height:42px}
+  .action{min-height:0;padding:17px;display:grid;grid-template-columns:42px 1fr;column-gap:13px;align-items:center}
+  .action .symbol{grid-row:span 2;margin:0}
+  .action b{align-self:end}
+  .action small{align-self:start}
+  .section-head h2{font-size:19px}
+  .study-card{padding:22px 16px;border-radius:19px}
+  .big-hanzi{font-size:68px}
+  .choices{gap:8px;margin:15px 0}
+  .choice{min-height:52px;padding:13px 14px}
+  .row{align-items:stretch}
+  .row>*{min-width:0}
+  .word{padding:12px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+.hero{position:relative;isolation:isolate;padding:26px 28px;border:1px solid #e2e9df;border-radius:24px;background:linear-gradient(115deg,rgba(255,255,255,.97) 0%,rgba(246,249,244,.94) 58%,rgba(232,241,232,.94) 100%);box-shadow:var(--shadow);overflow:hidden}
+.hero:after{content:"汉";position:absolute;z-index:-1;right:9%;top:-30px;color:rgba(40,107,75,.055);font:180px/1 "PingFang SC","Noto Sans CJK SC",sans-serif;transform:rotate(8deg)}
+.hero h1{font-weight:760}.eyebrow{color:#9a7048}.stat{position:relative;overflow:hidden}.stat:after{content:"";position:absolute;right:-10px;bottom:-26px;width:68px;height:68px;border-radius:50%;background:rgba(40,107,75,.045)}
+.course-select,select{min-height:46px;padding:10px 13px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);font:inherit}
+.course-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;margin:8px 0 14px;border:1px solid #e2e9df;border-radius:15px;background:linear-gradient(110deg,#fff,#f2f7f1)}.course-bar label{font-size:13px;font-weight:700}.course-bar small{display:block;color:var(--muted);font-weight:400;margin-top:2px}
+.hsk-tag{font-size:10px;letter-spacing:.04em;padding:4px 7px;border-radius:8px;color:#8d6135;background:#fbf1e5;white-space:nowrap}
+.word-list{max-height:68vh;overflow:auto;padding-right:3px;overscroll-behavior:contain}
+@media(max-width:620px){.hero{padding:21px 18px;border-radius:20px}.hero:after{right:2%;top:-14px;font-size:128px}.course-bar{align-items:flex-start;flex-direction:column}.course-bar select,.course-bar .course-select{width:100%}.word-list{max-height:none}}
+.quiz-prompt{max-width:100%;margin:22px auto 14px;font-size:clamp(25px,3.2vw,38px);font-weight:700;line-height:1.25;letter-spacing:-.035em;color:var(--ink);overflow-wrap:anywhere;text-wrap:balance}
+.quiz-prompt.meaning{max-width:560px;font-size:clamp(21px,2.5vw,30px);line-height:1.4;letter-spacing:-.02em}
+.quiz-prompt.meaning.long{max-width:560px;padding:17px 20px;border:1px solid #e7eee7;border-radius:16px;background:#f6f8f5;font-size:clamp(18px,2vw,24px);line-height:1.5;font-weight:600;letter-spacing:0;text-align:left;text-wrap:pretty}
+.quiz-prompt.cjk{font-family:"PingFang SC","Noto Sans CJK SC",sans-serif;font-size:clamp(52px,8vw,82px);letter-spacing:.02em}
+.quiz-card .muted{font-size:16px;line-height:1.45}
+.quiz-card .choice{font-size:17px;line-height:1.4;color:#27332b;background:#fff;overflow-wrap:anywhere}
+.quiz-card .choice:disabled{opacity:1;color:#27332b}
+.quiz-card .choice:disabled:not(.correct):not(.wrong){color:#59645c;background:#f7f8f6;border-color:#e3e8e2}
+.quiz-card .feedback{font-size:16px;line-height:1.5}
+.quiz-card .feedback .pinyin{font-size:20px;line-height:1.35}
+.quiz-card .feedback .controls{margin-top:14px}
+.daily-plan{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:0 0 16px;padding:20px 22px;border:1px solid #dfe9df;background:linear-gradient(115deg,#fff,#f1f7f1)}
+.daily-plan h3{margin:0 0 4px;font-size:19px;line-height:1.3}.daily-plan p{margin:0;color:var(--muted);font-size:14px}
+.pinyin-entry{display:flex;gap:10px;max-width:480px;margin:18px auto 10px}.pinyin-entry input{font-size:20px;font-weight:650;text-align:center;letter-spacing:.04em}.pinyin-entry .primary{white-space:nowrap}
+.pinyin-entry input.input-wrong{border-color:#d99b94;background:var(--redbg)}
+@media(max-width:620px){.quiz-prompt{font-size:clamp(24px,7vw,32px);margin:18px auto 12px}.quiz-prompt.meaning{font-size:23px}.quiz-prompt.meaning.long{font-size:18px;padding:14px 15px}.quiz-prompt.cjk{font-size:68px}.quiz-card .muted{font-size:15px}.quiz-card .choice{font-size:16px;padding:13px 14px}}
+@media(max-width:620px){.daily-plan{align-items:stretch;flex-direction:column;gap:12px;padding:17px}.daily-plan .primary{width:100%}.pinyin-entry{flex-direction:column}.pinyin-entry input,.pinyin-entry .primary{width:100%}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div class="brand">mandarin<span>.</span>coach</div>
+  <div class="top-actions">
+    <span id="cloudStatus" class="pill">Nur lokal</span>
+    <button class="iconbtn" id="authBtn" title="Mit Google anmelden">Google Login</button>
+    <button class="iconbtn" id="exportBtn" title="Lernstand exportieren">↥ Export</button>
+    <button class="iconbtn" id="importBtn" title="Lernstand importieren">↧ Import</button>
+    <input type="file" id="importFile" accept="application/json" class="hidden">
+  </div>
+</header>
+<section class="hero">
+  <div><div class="eyebrow">Dein persönlicher Lernraum</div><h1>你好, weiter geht's.</h1><p class="sub">Kleine Schritte. Jeden Tag ein bisschen sicherer.</p></div>
+  <div class="streak" id="dueBadge">Heute: 0 Wiederholungen</div>
+</section>
+<nav class="nav">
+  <button class="active" data-tab="home">Übersicht</button><button data-tab="learn">Neue Vokabeln</button><button data-tab="review">Wiederholen</button><button data-tab="sentences">Sätze</button><button data-tab="quiz">Quiz</button><button data-tab="words">Vokabeln</button><button data-tab="stats">Statistik</button>
+</nav>
+<main>
+<section class="view active" id="home">
+  <div class="section-head"><h2>Was möchtest du heute machen?</h2><span class="muted" id="todayLabel"></span></div>
+  <section class="panel daily-plan"><div><div class="eyebrow">Dein nächster Schritt</div><h3 id="nextStepTitle">Lernrunde starten</h3><p id="nextStepDescription">Erst fällige Wörter wiederholen, danach neue lernen.</p></div><button class="primary" id="startRecommended">Lernrunde starten</button></section>
+  <div class="grid">
+    <button class="action" data-go="learn"><div class="symbol">字</div><b>Neue Vokabeln</b><small>Nur Wörter, die du noch nicht gelernt hast</small></button>
+    <button class="action" data-go="quiz"><div class="symbol">✓</div><b>Wissen testen</b><small>Kurze, abwechslungsreiche Quizrunden</small></button>
+    <button class="action" data-go="review"><div class="symbol">↻</div><b>Fällige Wiederholungen</b><small>Nur Wörter, die jetzt fällig sind</small></button>
+    <button class="action" data-go="sentences"><div class="symbol">文</div><b>Satztraining</b><small>Beispiele mit Wörtern, die du schon gut kannst</small></button>
+    <button class="action" data-go="words"><div class="symbol">词</div><b>Vokabelsammlung</b><small>Alle Wörter und dein Lernstatus</small></button>
+  </div>
+  <div class="panel" style="margin-top:15px"><div class="section-head"><h2>Dein Lernprinzip</h2><span class="pill">Wiederholen mit Abstand</span></div><p class="muted" style="margin:0">Erst selbst erinnern, dann auflösen. Achte auf Schriftzeichen und Töne. Schwierige Wörter kommen früher wieder.</p></div>
+</section>
+<section class="view" id="stats">
+  <div class="section-head"><h2>Deine Statistik</h2><span class="muted" id="statsDate"></span></div>
+  <section class="stats">
+    <div class="stat"><strong id="knownCount">0</strong><small>Sicher gelernte Wörter</small></div>
+    <div class="stat"><strong id="hanziCount">0/100</strong><small>Hanzi-Ziel</small></div>
+    <div class="stat"><strong id="accuracy">—</strong><small>Quiz-Trefferquote</small></div>
+    <div class="stat"><strong id="reviewCount">0</strong><small>Heute bearbeitet</small></div>
+  </section>
+  <section class="panel progress-wrap">
+    <div class="progress-head"><strong>Dein Weg zu 100 Hanzi</strong><span id="progressText">0 von 100 Zeichen</span></div>
+    <div class="track"><div class="fill" id="progressFill" style="width:0%"></div></div>
+  </section>
+  <section class="panel" style="margin-top:14px">
+    <div class="section-head"><h2>Fortschritt nach HSK-Stufe</h2><span class="pill">1.000 Wörter</span></div>
+    <div class="course-progress"><div class="course-progress-head"><strong>HSK 1</strong><span id="hsk1WordProgress">0 von 300 sicher</span></div><div class="course-track"><div class="course-fill" id="hsk1WordFill"></div></div></div>
+    <div class="course-progress"><div class="course-progress-head"><strong>HSK 2</strong><span id="hsk2WordProgress">0 von 200 sicher</span></div><div class="course-track"><div class="course-fill" id="hsk2WordFill"></div></div></div>
+    <div class="course-progress"><div class="course-progress-head"><strong>HSK 3</strong><span id="hsk3WordProgress">0 von 500 sicher</span></div><div class="course-track"><div class="course-fill" id="hsk3WordFill"></div></div></div>
+  </section>
+</section>
+<section class="view" id="learn">
+  <div class="section-head"><h2>Neue Vokabeln</h2><span class="muted" id="learnProgress"></span></div>
+  <div class="course-bar"><label>Dein HSK-Kurs<small>Neue Karten kommen nur aus dem gewählten Kurs.</small></label><select id="courseLevel" class="course-select" aria-label="HSK-Kurs wählen"><option value="1">HSK 1 · Einstieg</option><option value="2">HSK 2 · Aufbau</option><option value="3">HSK 3 · Vertiefung</option><option value="0">Alle HSK-Stufen</option></select></div>
+  <div class="panel study-card" id="learnCard"></div>
+</section>
+<section class="view" id="review">
+  <div class="section-head"><h2>Wiederholen</h2><span class="muted" id="reviewProgress"></span></div>
+  <div class="panel study-card" id="reviewCard"></div>
+</section>
+<section class="view" id="sentences">
+  <div class="section-head"><h2>Satztraining</h2><span class="muted" id="sentenceProgress"></span></div>
+  <div class="panel study-card" id="sentenceCard"></div>
+</section>
+<section class="view quiz-card" id="quiz">
+  <div class="section-head"><h2>Wissen testen</h2><span class="muted">5 Fragen pro Runde</span></div>
+  <div class="panel study-card" id="quizCard">
+    <div class="eyebrow">Kurzer Wissenstest</div><div class="big-hanzi">学习</div><p class="muted">Erkennst du das Zeichen und seine Bedeutung?</p>
+    <div class="controls"><button class="primary" id="startQuiz">Erkennen üben</button><button class="secondary" id="startPinyinQuiz">Pinyin schreiben</button></div>
+  </div>
+</section>
+<section class="view" id="words">
+  <div class="section-head"><h2>Deine Vokabeln</h2><span class="muted" id="wordCountLabel"></span></div>
+  <div class="course-bar"><label>Sammlung filtern<small>Der HSK-Katalog bleibt vollständig durchsuchbar.</small></label><select id="wordLevelFilter" class="course-select" aria-label="Vokabeln nach HSK-Stufe filtern"><option value="all">Alle Stufen</option><option value="1">HSK 1</option><option value="2">HSK 2</option><option value="3">HSK 3</option><option value="custom">Eigene Wörter</option></select></div>
+  <div class="row" style="margin-bottom:12px"><input id="wordSearch" placeholder="Vokabel suchen ..."><button class="secondary" id="addWordBtn" style="flex:0 0 auto">+ Hinzufügen</button></div>
+  <div class="panel hidden" id="addForm">
+    <h3 style="margin-top:0">Neue Vokabel</h3>
+    <div class="field"><label>Hanzi (vereinfachte Zeichen)</label><input id="newHanzi" placeholder="例如：朋友"></div>
+    <div class="field"><label>Pinyin mit Tonzeichen</label><input id="newPinyin" placeholder="péngyou"></div>
+    <div class="field"><label>Deutsche Bedeutung</label><input id="newMeaning" placeholder="Freund"></div>
+    <div class="field"><label>Beispielsatz (optional)</label><input id="newExample" placeholder="他是我的朋友。"></div>
+    <div class="field"><label>Pinyin Beispielsatz (optional)</label><input id="newExamplePy" placeholder="Tā shì wǒ de péngyou."></div>
+    <div class="field"><label>Übersetzung Beispielsatz (optional)</label><input id="newExampleDe" placeholder="Er ist mein Freund."></div>
+    <div class="controls"><button class="primary" id="saveWord">Speichern</button><button class="secondary" id="cancelAdd">Abbrechen</button></div>
+  </div>
+  <div class="word-list" id="wordList"></div>
+  <div class="controls"><button class="secondary hidden" id="wordMore">Mehr anzeigen</button></div>
+</section>
+</main>
+<div class="footer" id="footerStatus">Lernstand lokal gespeichert. Wortbasis: <a href="https://download.chinesetest.cn/newhsk-site/Syllabus/H_DG_1110.pdf" target="_blank" rel="noreferrer">HSK-3.0-Lehrplan</a>. Deutsche Angaben: <a href="https://chdict.zydeo.net/de/download" target="_blank" rel="noreferrer">HanDeDict, CC BY-SA 3.0</a>.</div>
+</div>
+<div class="toast" id="toast"></div>
+<script src="hsk-data.js"></script>
+<script>
+const starter=[
+["我","wǒ","ich","我是学生。","Wǒ shì xuésheng.","Ich bin Student."],
+["你","nǐ","du","你好吗？","Nǐ hǎo ma?","Wie geht es dir?"],
+["他","tā","er","他是我的朋友。","Tā shì wǒ de péngyou.","Er ist mein Freund."],
+["她","tā","sie","她是老师。","Tā shì lǎoshī.","Sie ist Lehrerin."],
+["是","shì","sein; ist","我是德国人。","Wǒ shì Déguó rén.","Ich bin Deutscher."],
+["不","bù","nicht","我不喝茶。","Wǒ bù hē chá.","Ich trinke keinen Tee."],
+["好","hǎo","gut","这个很好。","Zhège hěn hǎo.","Das ist sehr gut."],
+["吗","ma","Fragepartikel","你是学生吗？","Nǐ shì xuésheng ma?","Bist du Student?"],
+["呢","ne","Fragepartikel; und?","你呢？","Nǐ ne?","Und du?"],
+["人","rén","Mensch; Person","中国人","Zhōngguó rén","Chinese; Chinesin"],
+["大","dà","groß","这个房间很大。","Zhège fángjiān hěn dà.","Dieses Zimmer ist groß."],
+["小","xiǎo","klein","这个杯子很小。","Zhège bēizi hěn xiǎo.","Diese Tasse ist klein."],
+["中","zhōng","Mitte; China (Bestandteil)","中国","Zhōngguó","China"],
+["国","guó","Land","德国","Déguó","Deutschland"],
+["口","kǒu","Mund; Zähleinheitswort","人口","rénkǒu","Bevölkerung"],
+["学","xué","lernen; studieren","学习","xuéxí","lernen"],
+["生","shēng","geboren; Leben; Schüler (Bestandteil)","学生","xuésheng","Schüler; Student"],
+["书","shū","Buch","这是我的书。","Zhè shì wǒ de shū.","Das ist mein Buch."],
+["水","shuǐ","Wasser","我喝水。","Wǒ hē shuǐ.","Ich trinke Wasser."],
+["吃","chī","essen","你吃什么？","Nǐ chī shénme?","Was isst du?"],
+["学习","xuéxí","lernen; studieren","我学习中文。","Wǒ xuéxí Zhōngwén.","Ich lerne Chinesisch."],
+["学生","xuésheng","Schüler; Student","我是大学生。","Wǒ shì dàxuéshēng.","Ich bin Student."],
+["旅游","lǚyóu","reisen; Tourismus","我喜欢旅游。","Wǒ xǐhuan lǚyóu.","Ich reise gerne."],
+["觉得","juéde","finden; denken; empfinden","我觉得很好。","Wǒ juéde hěn hǎo.","Ich finde es sehr gut."],
+["最","zuì","am meisten; am -sten","我最喜欢中国。","Wǒ zuì xǐhuan Zhōngguó.","Ich mag China am liebsten."],
+["朋友","péngyou","Freund; Freundin","他是我的朋友。","Tā shì wǒ de péngyou.","Er ist mein Freund."],
+["喜欢","xǐhuan","mögen; gern haben","我喜欢喝茶。","Wǒ xǐhuan hē chá.","Ich trinke gerne Tee."],
+["中文","Zhōngwén","Chinesisch (Sprache)","我学习中文。","Wǒ xuéxí Zhōngwén.","Ich lerne Chinesisch."],
+["今天","jīntiān","heute","今天很忙。","Jīntiān hěn máng.","Heute bin ich beschäftigt."],
+["什么","shénme","was; welche(s)","你吃什么？","Nǐ chī shénme?","Was isst du?"]
+];
+// Supabase-Konfiguration: Nach dem Anlegen deines Projekts hier URL und Publishable Key eintragen.\n// Wichtig: Niemals den secret/service_role Key in diese Datei schreiben.
+const SUPABASE_URL = "https://qlkgqlceqceclmfgtlgo.supabase.co";
+const SUPABASE_KEY = "sb_publishable_TsZUEx24wXe74SHbtvtNSg_rV2AGnxl";
+const CLOUD_TABLE = "mandarin_progress";
+const KEY="mandarinCoach_v1";
+const PENDING_KEY="mandarinCoach_pending_sync";
+let state=load();
+let supabaseClient=null, currentUser=null, syncTimer=null, syncing=false, initialisedCloud=false;
+function baseState(){return {words:starter.map((a,i)=>({id:i+1,hanzi:a[0],pinyin:a[1],meaning:a[2],example:a[3],examplePy:a[4],exampleDe:a[5],level:0,due:0,seen:0,correct:0,streak:0})),sessions:0,correct:0,answered:0,reviewedToday:0,reviewDate:new Date().toDateString(),nextId:starter.length+1,activeHskLevel:1}}
+function ensureCatalog(s){
+  s=s&&Array.isArray(s.words)?s:baseState();const refreshCatalog=Number(s.catalogVersion||0)<2;s.nextId=Math.max(Number(s.nextId)||1,...s.words.map(w=>(Number(w.id)||0)+1));
+  const byHanzi=new Map(s.words.map(w=>[w.hanzi,w]));
+  for(const item of HSK_CATALOG){
+    const old=byHanzi.get(item.hanzi);
+    if(old){old.hskId=item.id;old.hskLevel=item.hskLevel;if(refreshCatalog){old.pinyin=item.pinyin;old.meaning=item.meaning||"Bedeutung ergänzen";}else{if(!old.pinyin)old.pinyin=item.pinyin;if(!old.meaning)old.meaning=item.meaning||"Bedeutung ergänzen";}if(old.streak==null)old.streak=Math.min(3,Number(old.correct)||0);}
+    else{const w={...item,id:s.nextId++,meaning:item.meaning||"Bedeutung ergänzen",example:"",examplePy:"",exampleDe:"",level:0,due:0,seen:0,correct:0,streak:0};s.words.push(w);byHanzi.set(w.hanzi,w);}
+  }
+  for(const w of s.words){w.level=Number(w.level)||0;w.seen=Number(w.seen)||0;w.correct=Number(w.correct)||0;if(w.streak==null)w.streak=Math.min(3,w.correct);}
+  s.activeHskLevel=Number(s.activeHskLevel??1);s.catalogVersion=2;return s;
+}
+function load(){let s;try{s=JSON.parse(localStorage.getItem(KEY))}catch(e){}s=ensureCatalog(s||baseState());try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}return s}
+function save(){
+  localStorage.setItem(KEY,JSON.stringify(state));
+  localStorage.setItem(PENDING_KEY,"1");
+  renderStats();
+  renderDailyPlan();
+  if(currentUser && initialisedCloud) scheduleCloudSync();
+}
+function setCloudStatus(message, mode="neutral"){
+  const el=document.getElementById("cloudStatus");
+  if(!el)return;
+  el.textContent=message;
+  el.className="pill"+(mode==="good"?"":mode==="pending"?" due":"");
+  document.getElementById("footerStatus").textContent=message;
+}
+function scheduleCloudSync(){
+  clearTimeout(syncTimer);
+  syncTimer=setTimeout(syncToCloud,700);
+}
+function mergeStates(local, cloud){
+  // Vokabeln nach Hanzi zusammenführen. Der bessere Lernlevel bleibt erhalten;
+  // bei Fälligkeit gewinnt das frühere Datum, damit keine Wiederholung verloren geht.
+  const map=new Map();
+  for(const w of [...(cloud.words||[]),...(local.words||[])]){
+    const old=map.get(w.hanzi);
+    if(!old){map.set(w.hanzi,{...w});continue;}
+    const best=(Number(w.level)||0)>(Number(old.level)||0)?w:old;
+    map.set(w.hanzi,{
+      ...old,...best,
+      seen:Math.max(Number(old.seen)||0,Number(w.seen)||0),
+      correct:Math.max(Number(old.correct)||0,Number(w.correct)||0),
+      streak:Math.max(Number(old.streak)||0,Number(w.streak)||0),
+      level:Math.max(Number(old.level)||0,Number(w.level)||0),
+      hskId:old.hskId||w.hskId,
+      hskLevel:old.hskLevel||w.hskLevel,
+      due:(()=>{const dates=[Number(old.due),Number(w.due)].filter(x=>x>0);return dates.length?Math.min(...dates):0})(),
+      sentenceLevel:Math.max(Number(old.sentenceLevel)||0,Number(w.sentenceLevel)||0),
+      sentenceDue:Math.max(Number(old.sentenceDue)||0,Number(w.sentenceDue)||0)
+    });
+  }
+  return ensureCatalog({
+    words:[...map.values()],
+    sessions:Math.max(local.sessions||0,cloud.sessions||0),
+    correct:Math.max(local.correct||0,cloud.correct||0),
+    answered:Math.max(local.answered||0,cloud.answered||0),
+    reviewedToday:Math.max(local.reviewedToday||0,cloud.reviewedToday||0),
+    reviewDate:local.reviewDate===today()?local.reviewDate:(cloud.reviewDate||local.reviewDate),
+    nextId:Math.max(local.nextId||1,cloud.nextId||1),
+    activeHskLevel:local.activeHskLevel??cloud.activeHskLevel??1,
+    catalogVersion:2
+  });
+}
+async function syncToCloud(){
+  if(!supabaseClient||!currentUser||syncing||!navigator.onLine)return;
+  syncing=true;setCloudStatus("Synchronisiere …","pending");
+  try{
+    const payload={user_id:currentUser.id,progress:state,updated_at:new Date().toISOString()};
+    const {error}=await supabaseClient.from(CLOUD_TABLE).upsert(payload,{onConflict:"user_id"});
+    if(error)throw error;
+    localStorage.removeItem(PENDING_KEY);
+    setCloudStatus("Synchronisiert ✓","good");
+  }catch(err){
+    localStorage.setItem(PENDING_KEY,"1");
+    setCloudStatus("Offline / Sync ausstehend","pending");
+    console.error("Supabase sync:",err);
+  }finally{syncing=false;}
+}
+async function loadCloudProgress(){
+  if(!supabaseClient||!currentUser||!navigator.onLine)return;
+  setCloudStatus("Lade Lernstand …","pending");
+  try{
+    const {data,error}=await supabaseClient.from(CLOUD_TABLE).select("progress").eq("user_id",currentUser.id).maybeSingle();
+    if(error)throw error;
+    if(data&&data.progress){
+      state=mergeStates(state,data.progress);
+      localStorage.setItem(KEY,JSON.stringify(state));
+    }
+    initialisedCloud=true;
+    renderStats();renderWords();
+    await syncToCloud();
+  }catch(err){
+    console.error("Cloud load:",err);
+    setCloudStatus("Cloud nicht erreichbar","pending");
+  }
+}
+async function initCloud(){
+  if(!window.supabase||SUPABASE_URL.startsWith("DEINE_")||SUPABASE_KEY.startsWith("DEIN_")){
+    setCloudStatus("Einrichtung erforderlich");
+    return;
+  }
+  supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{
+    auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
+  });
+  const {data:{session}}=await supabaseClient.auth.getSession();
+  if(session){currentUser=session.user;updateAuthButton();await loadCloudProgress();}
+  supabaseClient.auth.onAuthStateChange(async(_event,session)=>{
+    currentUser=session?.user||null;updateAuthButton();
+    if(currentUser){initialisedCloud=false;await loadCloudProgress();}
+    else{initialisedCloud=false;setCloudStatus("Nur lokal");}
+  });
+}
+function updateAuthButton(){
+  const b=document.getElementById("authBtn");
+  if(currentUser){b.textContent="Abmelden";b.title=currentUser.email||"Angemeldet";}
+  else{b.textContent="Google Login";b.title="Mit Google anmelden";}
+}
+document.getElementById("authBtn").onclick=async()=>{
+  if(!supabaseClient){toast("Bitte zuerst Supabase URL und Key eintragen.");return;}
+  if(currentUser){
+    const {error}=await supabaseClient.auth.signOut();
+    if(error)toast("Abmelden fehlgeschlagen.");
+    else toast("Abgemeldet. Lokaler Lernstand bleibt erhalten.");
+  }else{
+    const {error}=await supabaseClient.auth.signInWithOAuth({
+      provider:"google",
+      options:{redirectTo:window.location.origin+window.location.pathname}
+    });
+    if(error)toast("Google Login fehlgeschlagen: "+error.message);
+  }
+};
+window.addEventListener("online",()=>{if(currentUser){setCloudStatus("Internet wieder da …","pending");if(localStorage.getItem(PENDING_KEY))syncToCloud();else loadCloudProgress();}});
+window.addEventListener("offline",()=>setCloudStatus("Offline: lokal gespeichert","pending"));
+function saveLegacy(){localStorage.setItem(KEY,JSON.stringify(state));renderStats()}
+function today(){return new Date().toDateString()}
+function isMastered(w){return (Number(w.level)||0)>=4&&(Number(w.streak)||0)>=3}
+function dueWords(){let now=Date.now();return state.words.filter(w=>w.seen>0&&w.due>0&&w.due<=now)}
+function newWords(){const level=Number(state.activeHskLevel??1);return state.words.filter(w=>w.seen===0&&w.level===0&&(!w.hskLevel||level===0||w.hskLevel<=level))}
+function escapeHTML(value){return String(value||"").replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]))}
+function meaningParts(raw,hanzi=""){
+  const rawParts=String(raw||"").replace(/\s*·\s*/g,"|").split("|");
+  const fragments=rawParts.flatMap(part=>part.split(/[;；]/)).flatMap(part=>{
+    const keepExplanation=/(?:Satzpartikel|Zählwort|ZEW|wird |drückt |verwendet |zwischen einem|nach einem)/i.test(part);
+    return keepExplanation?[part]:part.split(/[,，]/);
+  }).map(part=>part.replace(/\s*,?\s*Radikal\s+Nr\..*$/i,"").replace(/\s*,?\s*ZEW\s*:.*/i,"").replace(/\s*\((?:Adj|S|V|Adv|Num|Pron|Partikel|Konj|Präp|Interj|Zählwort|Zähleinheitswort)\)\s*/gi," ").replace(/\s+/g," ").trim()).filter(part=>part&&!/Radikal\s+Nr\./i.test(part));
+  const overrides={"大":{"primary":"groß","extras":["riesig","gewaltig"]},"小":{"primary":"klein","extras":["gering"]},"病":{"primary":"krank sein","extras":[]},"看病":{"primary":"zum Arzt gehen","extras":[]},"饭":{"primary":"Essen","extras":["Mahlzeit"]},"非常":{"primary":"sehr","extras":["äußerst"]},"手机":{"primary":"Handy","extras":[]},"沙发":{"primary":"Sofa","extras":["Couch"]},"有关":{"primary":"betreffen","extras":["im Zusammenhang stehen"]},"着":{"primary":"andauernde Handlung anzeigen","extras":["andauernden Zustand anzeigen"]},"茶":{"primary":"Tee","extras":[]},"这样":{"primary":"so","extras":["auf diese Weise"]},"出来":{"primary":"herauskommen","extras":["auftreten","sich herausstellen"]},"关心":{"primary":"sich kümmern um","extras":["besorgt sein um"]}};
+  const override=overrides[hanzi],primary=(typeof override==="string"?override:override?.primary)||fragments.shift()||"Bedeutung ergänzen";
+  const extraSource=override&&typeof override==="object"?override.extras:fragments;
+  const extras=[...new Set(extraSource.filter(part=>part.toLocaleLowerCase("de-DE")!==primary.toLocaleLowerCase("de-DE")))].slice(0,2);
+  let extraText=extras.join(" · ");if(extraText.length>88)extraText=extraText.slice(0,85).trimEnd()+"…";
+  return{primary,extras:extraText?[extraText]:[]}
+}
+function primaryMeaning(raw,hanzi=""){return meaningParts(raw,hanzi).primary}
+function meaningMarkup(raw,hanzi=""){const part=meaningParts(raw,hanzi);return `<strong class="${part.primary.length>32?"long":""}">${escapeHTML(part.primary)}</strong>${part.extras.length?`<small>Auch: ${escapeHTML(part.extras.join(" · "))}</small>`:""}`}
+function uniqueHanzi(){return new Set(state.words.filter(isMastered).flatMap(w=>[...w.hanzi])).size}
+function toast(t){let el=document.getElementById("toast");el.textContent=t;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),1800)}
+function renderStats(){if(state.reviewDate!==today()){state.reviewDate=today();state.reviewedToday=0;save()}let mastered=uniqueHanzi(),due=dueWords().length;document.getElementById("knownCount").textContent=state.words.filter(isMastered).length;document.getElementById("hanziCount").textContent=Math.min(mastered,100)+"/100";document.getElementById("accuracy").textContent=state.answered?Math.round(state.correct/state.answered*100)+"%":"—";document.getElementById("reviewCount").textContent=state.reviewedToday;document.getElementById("dueBadge").textContent="Heute: "+due+" Wiederholungen";document.getElementById("progressText").textContent=Math.min(mastered,100)+" von 100 Zeichen";document.getElementById("progressFill").style.width=Math.min(mastered,100)+"%";document.getElementById("todayLabel").textContent=new Date().toLocaleDateString("de-DE",{weekday:"short",day:"numeric",month:"short"});document.getElementById("statsDate").textContent=new Date().toLocaleDateString("de-DE",{weekday:"long",day:"numeric",month:"long"});for(const level of [1,2,3]){const total=level===1?300:level===2?200:500,known=state.words.filter(w=>w.hskLevel===level&&isMastered(w)).length;document.getElementById(`hsk${level}WordProgress`).textContent=`${known} von ${total} sicher`;document.getElementById(`hsk${level}WordFill`).style.width=Math.min(100,known/total*100)+"%"}const course=document.getElementById("courseLevel");if(course)course.value=String(state.activeHskLevel)}
+function renderDailyPlan(){const due=dueWords().length,fresh=newWords().length,title=document.getElementById("nextStepTitle"),desc=document.getElementById("nextStepDescription"),button=document.getElementById("startRecommended");if(!title||!desc||!button)return;if(due){title.textContent=`${due} fällige Wiederholungen`;desc.textContent="Erst abrufen und festigen, danach bei Bedarf neue Wörter lernen.";button.textContent="Wiederholen starten"}else if(fresh){title.textContent="Heute neue Wörter lernen";desc.textContent=`Keine Wiederholungen fällig. Nimm dir bis zu ${Math.min(5,fresh)} neue Wörter vor.`;button.textContent="Neue Wörter lernen"}else{const sentences=state.words.some(w=>isMastered(w)&&w.example&&w.exampleDe&&(w.sentenceDue||0)<=Date.now());title.textContent=sentences?"Sätze im Zusammenhang üben":"Deine Lernrunde ist erledigt";desc.textContent=sentences?"Wende bekannte Wörter in kurzen Beispielsätzen an.":"Du hast heute alles Fällige bearbeitet. Schau dir deinen Fortschritt an.";button.textContent=sentences?"Satztraining starten":"Fortschritt ansehen"}}
+function startRecommended(){if(dueWords().length)switchTab("review");else if(newWords().length)switchTab("learn");else if(state.words.some(w=>isMastered(w)&&w.example&&w.exampleDe&&(w.sentenceDue||0)<=Date.now()))switchTab("sentences");else switchTab("stats")}
+function switchTab(tab){document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===tab));if(tab==="words")renderWords();if(tab==="learn")renderLearn();if(tab==="review")startReview();if(tab==="sentences")startSentenceTraining();if(tab==="stats")renderStats()}
+document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>switchTab(b.dataset.go));document.getElementById("startRecommended").onclick=startRecommended;
+function speak(text){if(!("speechSynthesis"in window)){toast("Vorlesen wird von diesem Browser nicht unterstützt.");return}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(text);u.lang="zh-CN";u.rate=.82;speechSynthesis.speak(u)}
+let learnQueue=[],currentLearn=null,reviewQueue=[],currentReview=null,sentenceQueue=[],currentSentence=null;
+function renderLearn(){learnQueue=newWords().slice(0,5);showLearnCard()}
+function startReview(){reviewQueue=dueWords().sort((a,b)=>a.due-b.due).slice(0,15);showReviewCard()}
+function showLearnCard(){let el=document.getElementById("learnCard");currentLearn=learnQueue[0];if(!currentLearn){document.getElementById("learnProgress").textContent="";el.innerHTML=`<div class="empty"><div style="font-size:40px;margin-bottom:8px">🎉</div><b>Keine neuen Vokabeln gerade</b><p>Neue Wörter kannst du in deiner Vokabelsammlung hinzufügen. Bereits gelernte Wörter kommen erst wieder, wenn sie fällig sind.</p><button class="secondary" onclick="switchTab('words')">Zur Vokabelsammlung</button></div>`;return}
+document.getElementById("learnProgress").textContent=learnQueue.length+" neue in dieser Runde";
+el.innerHTML=`<div class="eyebrow">Schau dir das Zeichen an</div><div class="big-hanzi">${currentLearn.hanzi}</div><div class="learn-question" id="learnQuestion">Versuche zuerst, Bedeutung und Aussprache abzurufen.</div><div id="learnReveal" class="hidden"><div class="answer-pinyin">${currentLearn.pinyin}</div><div class="answer-meaning">${meaningMarkup(currentLearn.meaning,currentLearn.hanzi)}</div><button class="secondary answer-audio" onclick="speak('${currentLearn.hanzi}')">🔊 Wort anhören</button><div class="controls" id="learnControls"><button class="secondary" onclick="rateLearn(0)">Nochmal</button><button class="secondary" onclick="rateLearn(1)">Schwierig</button><button class="primary" onclick="rateLearn(2)">Gewusst</button><button class="secondary" onclick="rateLearn(3)">Einfach</button></div>${currentLearn.example?`<div class="example"><div class="zh">${currentLearn.example}</div><div class="pinyin">${currentLearn.examplePy||""}</div><div class="muted">${currentLearn.exampleDe||""}</div><button class="secondary" onclick="speak('${currentLearn.example.replace(/'/g,"\\'")}')">🔊 Satz anhören</button></div>`:""}</div><div class="controls" id="learnPromptControls"><button class="primary" id="revealLearn">Antwort anzeigen</button></div>`;
+document.getElementById("revealLearn").onclick=()=>{document.getElementById("learnQuestion").classList.add("hidden");document.getElementById("learnReveal").classList.remove("hidden");document.getElementById("learnPromptControls").classList.add("hidden")}}
+const intervalDays=[0,1,3,7,14,30,60,120];
+function planNext(w,r){const now=Date.now();w.level=Number(w.level)||0;w.streak=Number(w.streak)||0;if(r===0){w.streak=0;w.level=Math.max(0,w.level-1);w.due=now+10*60*1000;return}w.correct=(w.correct||0)+1;w.streak++;if(r===1)w.level=Math.max(1,w.level);else w.level=Math.min(7,w.level+(r===3?2:1));w.due=now+intervalDays[Math.max(1,w.level)]*86400000}
+function rateLearn(r){let w=currentLearn;w.seen=(w.seen||0)+1;planNext(w,r);state.reviewedToday++;learnQueue.shift();save();showLearnCard()}
+function showReviewCard(){let el=document.getElementById("reviewCard");currentReview=reviewQueue[0];if(!currentReview){document.getElementById("reviewProgress").textContent="";const stillDue=dueWords().length,fresh=newWords().length;let nextAction="";if(stillDue)nextAction='<button class="primary" onclick="switchTab(\'review\')">Weitere Wiederholungen</button>';else if(fresh)nextAction='<button class="primary" onclick="switchTab(\'learn\')">Neue Wörter lernen</button>';else nextAction='<button class="secondary" onclick="switchTab(\'sentences\')">Satztraining machen</button>';el.innerHTML=`<div class="empty"><div style="font-size:40px;margin-bottom:8px">🌿</div><b>Wiederholungen erledigt</b><p>Gut gemacht. Deine fälligen Wörter sind aufgefrischt.${stillDue?" Es warten noch weitere Wörter.":fresh?" Als Nächstes kannst du neue Wörter lernen.":""}</p>${nextAction}</div>`;return}document.getElementById("reviewProgress").textContent=reviewQueue.length+" fällig";el.innerHTML=`<div class="eyebrow">Fällige Wiederholung</div><div class="big-hanzi">${currentReview.hanzi}</div><div class="learn-question" id="reviewQuestion">Versuche zuerst, Bedeutung und Aussprache abzurufen.</div><div id="reviewReveal" class="hidden"><div class="answer-pinyin">${currentReview.pinyin}</div><div class="answer-meaning">${meaningMarkup(currentReview.meaning,currentReview.hanzi)}</div><button class="secondary answer-audio" onclick="speak('${currentReview.hanzi}')">🔊 Wort anhören</button><div class="controls" id="reviewControls"><button class="secondary" onclick="rateReview(0)">Nochmal</button><button class="secondary" onclick="rateReview(1)">Schwierig</button><button class="primary" onclick="rateReview(2)">Gewusst</button><button class="secondary" onclick="rateReview(3)">Einfach</button></div>${currentReview.example?`<div class="example"><div class="zh">${currentReview.example}</div><div class="pinyin">${currentReview.examplePy||""}</div><div class="muted">${currentReview.exampleDe||""}</div></div>`:""}</div><div class="controls" id="reviewPromptControls"><button class="primary" id="revealReview">Antwort anzeigen</button></div>`;document.getElementById("revealReview").onclick=()=>{document.getElementById("reviewQuestion").classList.add("hidden");document.getElementById("reviewReveal").classList.remove("hidden");document.getElementById("reviewPromptControls").classList.add("hidden")}}
+function rateReview(r){const w=currentReview;w.seen=(w.seen||0)+1;planNext(w,r);state.reviewedToday++;reviewQueue.shift();save();showReviewCard()}
+function startSentenceTraining(){sentenceQueue=state.words.filter(w=>isMastered(w)&&w.example&&w.exampleDe&&(w.sentenceDue||0)<=Date.now()).sort((a,b)=>(a.sentenceDue||0)-(b.sentenceDue||0)).slice(0,10);showSentenceCard()}
+function showSentenceCard(){const el=document.getElementById("sentenceCard");currentSentence=sentenceQueue[0];if(!currentSentence){document.getElementById("sentenceProgress").textContent="";const mastered=state.words.filter(w=>isMastered(w)&&w.example&&w.exampleDe).length;el.innerHTML=`<div class="empty"><div style="font-size:40px;margin-bottom:8px">文</div><b>${mastered?"Deine Beispielsätze sind für heute erledigt":"Lerne erst ein paar Vokabeln"}</b><p>${mastered?"Satzbeispiele kommen nach einer Pause wieder. Bis dahin kannst du neue Vokabeln lernen.":"Satztraining wird freigeschaltet, sobald du Vokabeln gut beherrschst und Beispielsätze dazu vorhanden sind."}</p><button class="secondary" onclick="switchTab('learn')">Neue Vokabeln</button></div>`;return}document.getElementById("sentenceProgress").textContent=sentenceQueue.length+" Sätze";el.innerHTML=`<div class="eyebrow">Übersetze den Satz im Kopf</div><div class="meaning" style="font-size:22px;margin:22px 0">${escapeHTML(currentSentence.exampleDe)}</div><div class="muted">Nutze deine Vokabel: ${escapeHTML(currentSentence.hanzi)} · ${escapeHTML(primaryMeaning(currentSentence.meaning,currentSentence.hanzi))}</div><div id="sentenceReveal" class="hidden"><div class="example"><div class="zh" style="font-size:30px">${currentSentence.example}</div><div class="pinyin">${currentSentence.examplePy||currentSentence.pinyin}</div></div></div><div class="controls" id="sentenceControls"><button class="primary" id="revealSentence">Lösung anzeigen</button></div>`;document.getElementById("revealSentence").onclick=()=>{document.getElementById("sentenceReveal").classList.remove("hidden");document.getElementById("sentenceControls").innerHTML=`<button class="secondary" onclick="speak('${currentSentence.example.replace(/'/g,"\\'")}')">🔊 Anhören</button><button class="secondary" onclick="rateSentence(0)">Noch üben</button><button class="primary" onclick="rateSentence(3)">Sicher</button>`}}
+function rateSentence(r){const w=currentSentence;w.sentenceLevel=Math.min(7,(w.sentenceLevel||w.level||2)+(r===3?1:0));w.sentenceDue=Date.now()+(r===3?intervalDays[w.sentenceLevel]:1)*86400000;state.reviewedToday++;sentenceQueue.shift();save();showSentenceCard()}
+let quizSet=[],quizIndex=0,quizCorrect=0,selected=false,quizMode="choice";
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function startQuiz(mode="choice"){quizMode=mode;const due=dueWords().sort((a,b)=>a.due-b.due);const fresh=shuffle(newWords());quizSet=[...due,...fresh].slice(0,5);quizIndex=0;quizCorrect=0;showQuestion()}
+document.getElementById("startQuiz").onclick=()=>startQuiz("choice");document.getElementById("startPinyinQuiz").onclick=()=>startQuiz("pinyin");
+function cleanPinyin(value){return String(value||"").toLocaleLowerCase("de-DE").replace(/u:/g,"ü").replace(/\s+/g,"").trim()}
+function pinyinKey(value){return cleanPinyin(value).normalize("NFC").replace(/ü/g,"v")}
+function relatedness(a,b){const ac=[...String(a.hanzi||"")],bc=[...String(b.hanzi||"")],shared=new Set(ac.filter(ch=>bc.includes(ch))).size,studyShared=new Set(ac.filter(ch=>bc.includes(ch)&&"学学生校教课师".includes(ch))).size;const ap=pinyinKey(a.pinyin),bp=pinyinKey(b.pinyin);let prefix=0;while(prefix<Math.min(ap.length,bp.length)&&ap[prefix]===bp[prefix])prefix++;const at=new Set(primaryMeaning(a.meaning,a.hanzi).toLocaleLowerCase("de-DE").match(/[\p{L}]{4,}/gu)||[]),bt=new Set(primaryMeaning(b.meaning,b.hanzi).toLocaleLowerCase("de-DE").match(/[\p{L}]{4,}/gu)||[]),overlap=[...at].filter(token=>bt.has(token)).length;return shared*5+studyShared*5+Math.min(prefix,4)*1.1+overlap*1.5+(a.hskLevel===b.hskLevel ? 0.6 : 0)+(ac.length===bc.length ? 0.4 : 0)+Math.random()*.35}
+function showQuestion(){selected=false;let el=document.getElementById("quizCard");if(!quizSet.length){el.innerHTML=`<div class="eyebrow">Alles erledigt</div><div class="big-hanzi">很好</div><h2>Gerade nichts fällig</h2><p class="muted">Das Quiz zeigt neue oder fällige Vokabeln. Gut gekonnte Wörter bleiben bis zu ihrem nächsten Wiederholungszeitpunkt außen vor.</p><div class="controls"><button class="primary" onclick="startQuiz()">Quiz aktualisieren</button><button class="secondary" onclick="switchTab('sentences')">Satztraining</button><button class="secondary" onclick="switchTab('home')">Übersicht</button></div>`;return}if(quizIndex>=quizSet.length){state.sessions++;save();el.innerHTML=`<div class="eyebrow">Runde abgeschlossen</div><div class="big-hanzi">完成</div><h2>${quizCorrect} von ${quizSet.length} richtig</h2><p class="muted">${quizCorrect===quizSet.length?"Sehr stark!":"Gute Übung. Deine Fehler kommen zum passenden Zeitpunkt wieder."}</p><div class="controls"><button class="primary" onclick="startQuiz()">Nochmal testen</button><button class="secondary" onclick="switchTab('home')">Übersicht</button></div>`;return}
+let w=quizSet[quizIndex];if(quizMode==="pinyin"){el.innerHTML=`<div class="eyebrow">Frage ${quizIndex+1} von ${quizSet.length} · Pinyin abrufen</div><div class="quiz-prompt cjk">${escapeHTML(w.hanzi)}</div><p class="muted">Tippe die Aussprache mit den richtigen Tönen.</p><form class="pinyin-entry" id="pinyinEntryForm"><input id="pinyinEntry" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Pinyin mit Tönen" placeholder="z. B. xuésheng"><button class="primary" type="submit">Prüfen</button></form><div id="quizFeedback" aria-live="polite"></div><div class="controls"><button class="primary hidden" id="nextQuestion">Weiter</button></div>`;const form=document.getElementById("pinyinEntryForm"),input=document.getElementById("pinyinEntry");form.onsubmit=e=>{e.preventDefault();if(!input.value.trim()){input.focus();return}submitPinyinAnswer(w,input.value)};input.focus({preventScroll:true});return}
+let reverse=Math.random()>.5,correct=reverse?w.hanzi:primaryMeaning(w.meaning,w.hanzi),candidates=state.words.filter(x=>x.id!==w.id&&(!x.hskLevel||!w.hskLevel||x.hskLevel<=Math.max(Number(state.activeHskLevel)||0,Number(w.hskLevel)||0)));const rankedValues=new Set([correct]),ranked=[];candidates.map(word=>({word,score:relatedness(w,word)})).sort((a,b)=>b.score-a.score).forEach(item=>{const value=reverse?item.word.hanzi:primaryMeaning(item.word.meaning,item.word.hanzi);if(!rankedValues.has(value)){rankedValues.add(value);ranked.push(item.word)}});let optionWords=shuffle(ranked.slice(0,10)).slice(0,3);const options=[{value:correct,word:w},...optionWords.map(word=>({value:reverse?word.hanzi:primaryMeaning(word.meaning,word.hanzi),word}))];const opts=shuffle(options),correctIndex=opts.findIndex(o=>o.value===correct),prompt=reverse?primaryMeaning(w.meaning,w.hanzi):w.hanzi,promptClass=reverse?`meaning${prompt.length>45?" long":""}`:"cjk";el.innerHTML=`<div class="eyebrow">Frage ${quizIndex+1} von ${quizSet.length}</div><div class="quiz-prompt ${promptClass}">${escapeHTML(prompt)}</div><p class="muted">${reverse?"Welches Schriftzeichen passt?":"Was bedeutet dieses Wort?"}</p><div class="choices">${opts.map((o,i)=>`<button class="choice" data-answer="${i}">${reverse?`<span class="choice-hanzi">${escapeHTML(o.word.hanzi)}</span><small class="choice-pinyin">${escapeHTML(o.word.pinyin)}</small>`:escapeHTML(o.value)}</button>`).join("")}</div><div id="quizFeedback" aria-live="polite"></div><div class="controls"><button class="primary hidden" id="nextQuestion">Weiter</button></div>`;
+document.querySelectorAll("[data-answer]").forEach((b,i)=>b.onclick=()=>answerQuestion(b,opts[i].value,correct,w,correctIndex))}
+function recordQuizResult(ok,w){if(ok)quizCorrect++;state.answered++;if(ok)state.correct++;w.seen=(w.seen||0)+1;planNext(w,ok?2:0);save()}
+function showQuizFeedback(ok,w){const f=document.getElementById("quizFeedback");f.className="feedback "+(ok?"good":"bad");f.innerHTML=`<strong>${ok?"Richtig!":"Noch nicht ganz."}</strong><div style="font-size:29px;margin:5px 0">${escapeHTML(w.hanzi)}</div><div class="pinyin">${escapeHTML(w.pinyin)}</div><div class="answer-meaning">${meaningMarkup(w.meaning,w.hanzi)}</div>${w.example?`<div style="margin-top:9px">${escapeHTML(w.example)}<br><span class="pinyin">${escapeHTML(w.examplePy||"")}</span><br><span class="muted">${escapeHTML(w.exampleDe||"")}</span></div>`:""}<div class="controls"><button class="secondary" onclick="speak('${String(w.example||w.hanzi).replace(/'/g,"\\'")}')">🔊 Anhören</button></div>`;const next=document.getElementById("nextQuestion");next.classList.remove("hidden");next.onclick=()=>{quizIndex++;showQuestion()}}
+function answerQuestion(btn,choice,correct,w,correctIndex){if(selected)return;selected=true;const ok=choice===correct;recordQuizResult(ok,w);document.querySelectorAll("[data-answer]").forEach((b,i)=>{b.disabled=true;if(i===correctIndex)b.classList.add("correct")});if(!ok)btn.classList.add("wrong");showQuizFeedback(ok,w)}
+function submitPinyinAnswer(w,value){if(selected)return;selected=true;const input=document.getElementById("pinyinEntry"),ok=pinyinKey(value)===pinyinKey(w.pinyin);input.disabled=true;if(!ok)input.classList.add("input-wrong");recordQuizResult(ok,w);showQuizFeedback(ok,w)}
+let wordPage=1;
+function renderWords(){let q=(document.getElementById("wordSearch").value||"").toLowerCase(),filter=document.getElementById("wordLevelFilter").value;let arr=state.words.filter(w=>(filter==="all"||(filter==="custom"?!w.hskLevel:String(w.hskLevel)===filter))&&(w.hanzi+w.pinyin+w.meaning).toLowerCase().includes(q));arr.sort((a,b)=>(a.hskId||9999)-(b.hskId||9999));document.getElementById("wordCountLabel").textContent=arr.length.toLocaleString("de-DE")+" Einträge";let shown=arr.slice(0,wordPage*60);document.getElementById("wordList").innerHTML=shown.map(w=>{let status=isMastered(w)?"Sicher":w.seen>0?"Im Aufbau":"Neu";let due=w.seen>0&&w.due<=Date.now();return `<div class="word"><div style="display:flex;gap:12px;align-items:center"><div class="hanzi">${w.hanzi}</div><div><b>${escapeHTML(primaryMeaning(w.meaning,w.hanzi))}</b>${meaningParts(w.meaning,w.hanzi).extras.length?`<small>${escapeHTML(meaningParts(w.meaning,w.hanzi).extras.slice(0,2).join(" · "))}</small>`:""}<small>${escapeHTML(w.pinyin)}</small></div></div><div style="display:flex;gap:7px;align-items:center">${w.hskLevel?`<span class="hsk-tag">HSK ${w.hskLevel}</span>`:""}<span class="pill ${due?"due":""}">${due?"Fällig":status}</span></div></div>`}).join("")||'<div class="empty">Keine passenden Vokabeln gefunden.</div>';let more=document.getElementById("wordMore");more.classList.toggle("hidden",shown.length>=arr.length);more.textContent=`Mehr anzeigen · ${Math.min(60,arr.length-shown.length)} weitere`;}
+
+document.getElementById("wordSearch").oninput=()=>{wordPage=1;renderWords()};document.getElementById("wordLevelFilter").onchange=()=>{wordPage=1;renderWords()};document.getElementById("wordMore").onclick=()=>{wordPage++;renderWords()};document.getElementById("courseLevel").onchange=e=>{state.activeHskLevel=Number(e.target.value);save();if(document.getElementById("learn").classList.contains("active"))renderLearn()};document.getElementById("addWordBtn").onclick=()=>document.getElementById("addForm").classList.toggle("hidden");document.getElementById("cancelAdd").onclick=()=>document.getElementById("addForm").classList.add("hidden");
+document.getElementById("saveWord").onclick=()=>{let hanzi=document.getElementById("newHanzi").value.trim(),pinyin=document.getElementById("newPinyin").value.trim(),meaning=document.getElementById("newMeaning").value.trim();if(!hanzi||!pinyin||!meaning){toast("Bitte Hanzi, Pinyin und Bedeutung ausfüllen.");return}if(state.words.some(w=>w.hanzi===hanzi)){toast("Diese Vokabel gibt es bereits.");return}state.words.push({id:state.nextId++,hanzi,pinyin,meaning,example:document.getElementById("newExample").value.trim(),examplePy:document.getElementById("newExamplePy").value.trim(),exampleDe:document.getElementById("newExampleDe").value.trim(),level:0,due:0,seen:0,correct:0});save();["newHanzi","newPinyin","newMeaning","newExample","newExamplePy","newExampleDe"].forEach(id=>document.getElementById(id).value="");document.getElementById("addForm").classList.add("hidden");renderWords();toast("Vokabel hinzugefügt.")};
+document.getElementById("exportBtn").onclick=()=>{let blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="mandarin-coach-backup.json";a.click();URL.revokeObjectURL(a.href);toast("Backup exportiert.")};
+document.getElementById("importBtn").onclick=()=>document.getElementById("importFile").click();document.getElementById("importFile").onchange=e=>{let file=e.target.files[0];if(!file)return;let r=new FileReader();r.onload=()=>{try{let data=JSON.parse(r.result);if(!Array.isArray(data.words))throw Error();state=data;save();renderWords();toast("Lernstand importiert.")}catch(err){toast("Datei konnte nicht gelesen werden.")}};r.readAsText(file)};
+renderStats();
+renderDailyPlan();
+initCloud();
+</script>
+</body></html>

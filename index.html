@@ -264,8 +264,31 @@ const PENDING_KEY="mandarinCoach_pending_sync";
 let state=load();
 let supabaseClient=null, currentUser=null, syncTimer=null, syncing=false, initialisedCloud=false;
 function baseState(){return {words:starter.map((a,i)=>({id:i+1,hanzi:a[0],pinyin:a[1],meaning:a[2],example:a[3],examplePy:a[4],exampleDe:a[5],level:0,due:0,seen:0,correct:0,streak:0})),sessions:0,correct:0,answered:0,reviewedToday:0,reviewDate:new Date().toDateString(),nextId:starter.length+1,activeHskLevel:1}}
+const PRIOR_KNOWN=`我 你 他 她 人 朋友 名字 学生 中国 德国 中 国 在 去 来 这里 今天 明天 昨天 现在 日 月 明 吃 饭 菜 水 喝 书 买 钱 大 小 口 本 个 家 学 是 有 好 最 很 做 来自 不 吗 的 这 那 得 觉 什么 多少 哪儿 我们 他们`.split(/\s+/);
+const PRIOR_STRENGTHEN=`觉得 很多 和 了 想 学习 旅游 哪 呢`.split(/\s+/);
+const PRIOR_NEW=`中文 时间 如果 一起 为什么 有意思 比 喜欢 知道 好吃 妈妈 回家 还是 茶`.split(/\s+/);
+const PRIOR_EXTRA=[
+  ["德国","Déguó","Deutschland","我来自德国。","Wǒ láizì Déguó.","Ich komme aus Deutschland."],
+  ["明","míng","hell; Bestandteil von 明天","明天见。","Míngtiān jiàn.","Wir sehen uns morgen."],
+  ["很多","hěn duō","viel; viele","我有很多书。","Wǒ yǒu hěn duō shū.","Ich habe viele Bücher."],
+  ["觉","jué","Bestandteil von 觉得","我觉得很好。","Wǒ juéde hěn hǎo.","Ich finde es sehr gut."],
+  ["回家","huí jiā","nach Hause gehen","我今天回家。","Wǒ jīntiān huí jiā.","Ich gehe heute nach Hause."]
+];
+function seedPriorVocabulary(s){
+  if(Number(s.priorVocabVersion||0)>=1)return s;
+  const byHanzi=new Map(s.words.map(w=>[w.hanzi,w]));
+  for(const [hanzi,pinyin,meaning,example,examplePy,exampleDe] of PRIOR_EXTRA){
+    if(!byHanzi.has(hanzi)){const w={id:s.nextId++,hanzi,pinyin,meaning,example,examplePy,exampleDe,level:0,due:0,seen:0,correct:0,streak:0,source:"prior-vocabulary"};s.words.push(w);byHanzi.set(hanzi,w)}
+  }
+  const priority=new Set(PRIOR_NEW), strengthen=new Set(PRIOR_STRENGTHEN);
+  for(const hanzi of PRIOR_KNOWN){if(priority.has(hanzi)||strengthen.has(hanzi))continue;const w=byHanzi.get(hanzi);if(w){w.level=4;w.streak=3;w.due=0;w.priorStatus="known"}}
+  const now=Date.now();
+  for(const hanzi of PRIOR_STRENGTHEN){const w=byHanzi.get(hanzi);if(w&&!isMastered(w)){w.level=Math.max(1,Number(w.level)||0);w.seen=Math.max(1,Number(w.seen)||0);w.due=now;w.priorStatus="strengthen"}}
+  for(const hanzi of PRIOR_NEW){const w=byHanzi.get(hanzi);if(w){w.priorStatus="priority-new";if(w.seen>0&&!isMastered(w))w.due=now}}
+  s.priorVocabVersion=1;return s;
+}
 function ensureCatalog(s){
-  s=s&&Array.isArray(s.words)?s:baseState();const refreshCatalog=Number(s.catalogVersion||0)<2;s.nextId=Math.max(Number(s.nextId)||1,...s.words.map(w=>(Number(w.id)||0)+1));
+  s=s&&Array.isArray(s.words)?s:baseState();const refreshCatalog=Number(s.catalogVersion||0)<3;s.nextId=Math.max(Number(s.nextId)||1,...s.words.map(w=>(Number(w.id)||0)+1));
   const byHanzi=new Map(s.words.map(w=>[w.hanzi,w]));
   for(const item of HSK_CATALOG){
     const old=byHanzi.get(item.hanzi);
@@ -273,7 +296,7 @@ function ensureCatalog(s){
     else{const w={...item,id:s.nextId++,meaning:item.meaning||"Bedeutung ergänzen",example:"",examplePy:"",exampleDe:"",level:0,due:0,seen:0,correct:0,streak:0};s.words.push(w);byHanzi.set(w.hanzi,w);}
   }
   for(const w of s.words){w.level=Number(w.level)||0;w.seen=Number(w.seen)||0;w.correct=Number(w.correct)||0;if(w.streak==null)w.streak=Math.min(3,w.correct);}
-  s.activeHskLevel=Number(s.activeHskLevel??1);s.catalogVersion=2;return s;
+  s.activeHskLevel=Number(s.activeHskLevel??1);s.catalogVersion=3;return seedPriorVocabulary(s);
 }
 function load(){let s;try{s=JSON.parse(localStorage.getItem(KEY))}catch(e){}s=ensureCatalog(s||baseState());try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}return s}
 function save(){
@@ -310,6 +333,7 @@ function mergeStates(local, cloud){
       level:Math.max(Number(old.level)||0,Number(w.level)||0),
       hskId:old.hskId||w.hskId,
       hskLevel:old.hskLevel||w.hskLevel,
+      priorStatus:old.priorStatus||w.priorStatus,
       due:(()=>{const dates=[Number(old.due),Number(w.due)].filter(x=>x>0);return dates.length?Math.min(...dates):0})(),
       sentenceLevel:Math.max(Number(old.sentenceLevel)||0,Number(w.sentenceLevel)||0),
       sentenceDue:Math.max(Number(old.sentenceDue)||0,Number(w.sentenceDue)||0)
@@ -324,7 +348,8 @@ function mergeStates(local, cloud){
     reviewDate:local.reviewDate===today()?local.reviewDate:(cloud.reviewDate||local.reviewDate),
     nextId:Math.max(local.nextId||1,cloud.nextId||1),
     activeHskLevel:local.activeHskLevel??cloud.activeHskLevel??1,
-    catalogVersion:2
+    catalogVersion:3,
+    priorVocabVersion:Math.max(Number(local.priorVocabVersion)||0,Number(cloud.priorVocabVersion)||0)
   });
 }
 async function syncToCloud(){
@@ -401,7 +426,7 @@ function saveLegacy(){localStorage.setItem(KEY,JSON.stringify(state));renderStat
 function today(){return new Date().toDateString()}
 function isMastered(w){return (Number(w.level)||0)>=4&&(Number(w.streak)||0)>=3}
 function dueWords(){let now=Date.now();return state.words.filter(w=>w.seen>0&&w.due>0&&w.due<=now)}
-function newWords(){const level=Number(state.activeHskLevel??1);return state.words.filter(w=>w.seen===0&&w.level===0&&(!w.hskLevel||level===0||w.hskLevel<=level))}
+function newWords(){const level=Number(state.activeHskLevel??1);return state.words.filter(w=>w.seen===0&&w.level===0&&(!w.hskLevel||level===0||w.hskLevel<=level)).sort((a,b)=>(b.priorStatus==="priority-new")-(a.priorStatus==="priority-new"))}
 function escapeHTML(value){return String(value||"").replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]))}
 function meaningParts(raw,hanzi=""){
   const rawParts=String(raw||"").replace(/\s*·\s*/g,"|").split("|");
@@ -409,7 +434,7 @@ function meaningParts(raw,hanzi=""){
     const keepExplanation=/(?:Satzpartikel|Zählwort|ZEW|wird |drückt |verwendet |zwischen einem|nach einem)/i.test(part);
     return keepExplanation?[part]:part.split(/[,，]/);
   }).map(part=>part.replace(/\s*,?\s*Radikal\s+Nr\..*$/i,"").replace(/\s*,?\s*ZEW\s*:.*/i,"").replace(/\s*\((?:Adj|S|V|Adv|Num|Pron|Partikel|Konj|Präp|Interj|Zählwort|Zähleinheitswort)\)\s*/gi," ").replace(/\s+/g," ").trim()).filter(part=>part&&!/Radikal\s+Nr\./i.test(part));
-  const overrides={"大":{"primary":"groß","extras":["riesig","gewaltig"]},"小":{"primary":"klein","extras":["gering"]},"病":{"primary":"krank sein","extras":[]},"看病":{"primary":"zum Arzt gehen","extras":[]},"饭":{"primary":"Essen","extras":["Mahlzeit"]},"非常":{"primary":"sehr","extras":["äußerst"]},"手机":{"primary":"Handy","extras":[]},"沙发":{"primary":"Sofa","extras":["Couch"]},"有关":{"primary":"betreffen","extras":["im Zusammenhang stehen"]},"着":{"primary":"andauernde Handlung anzeigen","extras":["andauernden Zustand anzeigen"]},"茶":{"primary":"Tee","extras":[]},"这样":{"primary":"so","extras":["auf diese Weise"]},"出来":{"primary":"herauskommen","extras":["auftreten","sich herausstellen"]},"关心":{"primary":"sich kümmern um","extras":["besorgt sein um"]}};
+  const overrides={"吧":{"primary":"weicher Satzpartikel","extras":["macht Bitten und Vorschläge höflicher"]},"大":{"primary":"groß","extras":["riesig","gewaltig"]},"小":{"primary":"klein","extras":["gering"]},"病":{"primary":"krank sein","extras":[]},"看病":{"primary":"zum Arzt gehen","extras":[]},"饭":{"primary":"Essen","extras":["Mahlzeit"]},"非常":{"primary":"sehr","extras":["äußerst"]},"手机":{"primary":"Handy","extras":[]},"沙发":{"primary":"Sofa","extras":[]},"有关":{"primary":"betreffen","extras":["im Zusammenhang stehen"]},"着":{"primary":"andauernde Handlung anzeigen","extras":["andauernden Zustand anzeigen"]},"茶":{"primary":"Tee","extras":[]},"这样":{"primary":"so","extras":["auf diese Weise"]},"出来":{"primary":"herauskommen","extras":["auftreten","sich herausstellen"]},"关心":{"primary":"sich kümmern um","extras":["besorgt sein um"]}};
   const override=overrides[hanzi],primary=(typeof override==="string"?override:override?.primary)||fragments.shift()||"Bedeutung ergänzen";
   const extraSource=override&&typeof override==="object"?override.extras:fragments;
   const extras=[...new Set(extraSource.filter(part=>part.toLocaleLowerCase("de-DE")!==primary.toLocaleLowerCase("de-DE")))].slice(0,2);

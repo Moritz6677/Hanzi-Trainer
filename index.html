@@ -261,7 +261,7 @@ const SUPABASE_KEY = "sb_publishable_TsZUEx24wXe74SHbtvtNSg_rV2AGnxl";
 const CLOUD_TABLE = "mandarin_progress";
 const KEY="mandarinCoach_v1";
 const PENDING_KEY="mandarinCoach_pending_sync";
-let state=load();
+let state;
 let supabaseClient=null, currentUser=null, syncTimer=null, syncing=false, initialisedCloud=false;
 function baseState(){return {words:starter.map((a,i)=>({id:i+1,hanzi:a[0],pinyin:a[1],meaning:a[2],example:a[3],examplePy:a[4],exampleDe:a[5],level:0,due:0,seen:0,correct:0,streak:0})),sessions:0,correct:0,answered:0,reviewedToday:0,reviewDate:new Date().toDateString(),nextId:starter.length+1,activeHskLevel:1}}
 const PRIOR_KNOWN=`我 你 他 她 人 朋友 名字 学生 中国 德国 中 国 在 去 来 这里 今天 明天 昨天 现在 日 月 明 吃 饭 菜 水 喝 书 买 钱 大 小 口 本 个 家 学 是 有 好 最 很 做 来自 不 吗 的 这 那 得 觉 什么 多少 哪儿 我们 他们`.split(/\s+/);
@@ -299,6 +299,7 @@ function ensureCatalog(s){
   s.activeHskLevel=Number(s.activeHskLevel??1);s.catalogVersion=3;return seedPriorVocabulary(s);
 }
 function load(){let s;try{s=JSON.parse(localStorage.getItem(KEY))}catch(e){}s=ensureCatalog(s||baseState());try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}return s}
+state=load();
 function save(){
   localStorage.setItem(KEY,JSON.stringify(state));
   localStorage.setItem(PENDING_KEY,"1");
